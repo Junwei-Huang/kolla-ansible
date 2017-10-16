@@ -194,6 +194,7 @@ mariadb_wsrep_port: "4567"
 mariadb_ist_port: "4568"
 mariadb_sst_port: "4444"
 
+
 memcached_port: "11211"
 
 mistral_api_port: "8989"
@@ -417,6 +418,7 @@ enable_zun: "no"
 
 ironic_keystone_user: "ironic"
 neutron_keystone_user: "neutron"
+cinder_keystone_user: "cinder"
 nova_keystone_user: "nova"
 designate_keystone_user: "designate"
 

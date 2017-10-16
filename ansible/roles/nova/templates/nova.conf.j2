@@ -1,10 +1,12 @@
 # nova.conf
+#Merged Ocata and Pike
 [DEFAULT]
 debug = {{ nova_logging_debug }}
 
 log_dir = /var/log/kolla/nova
 
 state_path = /var/lib/nova
+reclaim_instance_interval = 604800
 
 osapi_compute_listen = {{ api_interface_address }}
 osapi_compute_listen_port = {{ nova_api_port }}
@@ -35,6 +37,7 @@ compute_driver = fake.FakeDriver
 compute_driver = vmwareapi.VMwareVCDriver
 {% else %}
 compute_driver = libvirt.LibvirtDriver
+compute_monitors = cpu.virt_driver,mem.virt_driver
 {% endif %}
 
 # Though my_ip is not used directly, lots of other variables use $my_ip
@@ -116,6 +119,13 @@ num_retries = {{ groups['glance-api'] | length }}
 [cinder]
 catalog_info = volumev3:cinderv3:internalURL
 os_region_name = {{ openstack_region_name }}
+auth_url = {{ keystone_admin_url }}
+auth_type = password
+project_domain_name = default
+user_domain_id = default
+project_name = service
+username = {{ cinder_keystone_user }}
+password = {{ cinder_keystone_password }}
 {% endif %}
 
 [neutron]
@@ -196,6 +206,8 @@ ca_file = /etc/nova/vmware_ca
 [upgrade_levels]
 compute = auto
 
+[notifications]
+notification_format = unversioned
 [oslo_messaging_notifications]
 {% if nova_enabled_notification_topics %}
 driver = messagingv2
