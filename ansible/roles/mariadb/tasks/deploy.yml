@@ -1,0 +1,12 @@
+---
+- include: config.yml
+
+- include: bootstrap.yml
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- include: register.yml
+
+# Test haproxy user through VIP
+- include: check.yml

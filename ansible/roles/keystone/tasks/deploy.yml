@@ -1,0 +1,15 @@
+---
+- include: config.yml
+
+- include: bootstrap.yml
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- include: init_fernet.yml
+  when:
+    - keystone_token_provider == 'fernet'
+
+- include: register.yml
+
+- include: check.yml
