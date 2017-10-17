@@ -1,0 +1,119 @@
+[DEFAULT]
+debug = True
+host = cinder1
+enabled_backends = NetAppIscsiBackend,huawei-iscsi-201705262211,huawei-iscsi-20170606152754,huawei-iscsi-20170606160232,huawei-iscsi-20170606185040,huawei-iscsi-20170606191247,huawei-iscsi-20170606192235,huawei-iscsi-20170606194743,huawei-iscsi-20170606200904,huawei-iscsi-20170606202139,huawei-iscsi-20170606204305,huawei-iscsi-20170606211328,huawei-nfs-20170607153407,huawei-nfs-20170607154549,huawei-iscsi-20170607155101,huawei-iscsi-20170607163642,huawei-iscsi-20170607165450,netapp-iscsi-20170607171546,netapp-iscsi-20170607175043,huawei-iscsi-20170607183252,huawei-nfs-20170607183646,netapp-nfs-20170607184118,huawei-nfs-20170607185058,huawei-nfs-20170608111134
+glance_api_version = 2
+allowed_direct_url_schemes = cinder
+nova_catalog_admin_info = compute:nova:adminURL
+os_privileged_user_auth_url = http://172.24.9.198:35357
+os_privileged_user_name = cinder
+os_privileged_user_password = 6jcTKoAOIE3VjIyOzxDomYsAfb8fEDf0p78eCmUo
+os_privileged_user_tenant = service
+
+[NetAppIscsiBackend]
+volume_backend_name = NetAppIscsiBackend
+volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
+netapp_server_hostname = 172.24.1.21
+netapp_server_port = 80
+netapp_storage_protocol = iscsi
+netapp_storage_family = ontap_cluster
+netapp_login = admin
+netapp_password = netapp123
+netapp_vserver = honghe_kolla_1_iscsi
+netapp_transport_type = http
+image_upload_use_internal_tenant = True
+image_upload_use_cinder_backend = True
+max_over_subscription_ratio = 2
+netapp_lun_space_reservation = disabled
+
+[huawei-iscsi-201705262211]
+volume_backend_name = huawei-iscsi-201705262211
+volume_driver = cinder.volume.drivers.huawei.huawei_driver.HuaweiISCSIDriver
+cinder_huawei_conf_file = /etc/cinder/huawei_conf/cinder_huawei_huawei-iscsi-201705262211_conf.xml
+
+[huawei-iscsi-20170607102620]
+volume_backend_name = huawei-iscsi-20170607102620
+volume_driver = cinder.volume.drivers.huawei.huawei_driver.HuaweiISCSIDriver
+cinder_huawei_conf_file = /etc/cinder/huawei_conf/cinder_huawei_huawei-iscsi-20170607102620_conf.xml
+
+[huawei-nfs-20170607153407]
+volume_backend_name = huawei-nfs-20170607153407
+volume_driver = None
+cinder_huawei_conf_file = /etc/cinder/huawei_conf/cinder_huawei_huawei-nfs-20170607153407_conf.xml
+
+[huawei-nfs-20170607154549]
+volume_backend_name = huawei-nfs-20170607154549
+volume_driver = None
+cinder_huawei_conf_file = /etc/cinder/huawei_conf/cinder_huawei_huawei-nfs-20170607154549_conf.xml
+
+[huawei-iscsi-20170607155101]
+volume_backend_name = huawei-iscsi-20170607155101
+volume_driver = cinder.volume.drivers.huawei.huawei_driver.HuaweiISCSIDriver
+cinder_huawei_conf_file = /etc/cinder/huawei_conf/cinder_huawei_huawei-iscsi-20170607155101_conf.xml
+
+[huawei-iscsi-20170607163642]
+volume_backend_name = huawei-iscsi-20170607163642
+volume_driver = cinder.volume.drivers.huawei.huawei_driver.HuaweiISCSIDriver
+cinder_huawei_conf_file = /etc/cinder/huawei_conf/cinder_huawei_huawei-iscsi-20170607163642_conf.xml
+
+[huawei-iscsi-20170607165450]
+volume_backend_name = huawei-iscsi-20170607165450
+volume_driver = cinder.volume.drivers.huawei.huawei_driver.HuaweiISCSIDriver
+cinder_huawei_conf_file = /etc/cinder/huawei_conf/cinder_huawei_huawei-iscsi-20170607165450_conf.xml
+
+[netapp-iscsi-20170607171546]
+netapp_password = ss
+netapp_server_hostname = 0
+volume_backend_name = netapp-iscsi-20170607171546
+netapp_vserver = ss
+netapp_server_port = 80
+volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
+nfs_shares_config = 
+netapp_login = ss
+netapp_storage_protocol = iscsi
+netapp_transport_type = http
+
+[netapp-iscsi-20170607175043]
+netapp_password = 123456
+netapp_server_hostname = 0
+volume_backend_name = netapp-iscsi-20170607175043
+netapp_vserver = 11113213
+netapp_server_port = 80
+volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
+nfs_shares_config = 
+netapp_login = root
+netapp_storage_protocol = iscsi
+netapp_transport_type = http
+
+[huawei-iscsi-20170607183252]
+volume_backend_name = huawei-iscsi-20170607183252
+volume_driver = cinder.volume.drivers.huawei.huawei_driver.HuaweiISCSIDriver
+cinder_huawei_conf_file = /etc/cinder/huawei_conf/cinder_huawei_huawei-iscsi-20170607183252_conf.xml
+
+[huawei-nfs-20170607183646]
+volume_backend_name = huawei-nfs-20170607183646
+volume_driver = None
+cinder_huawei_conf_file = /etc/cinder/huawei_conf/cinder_huawei_huawei-nfs-20170607183646_conf.xml
+
+[netapp-nfs-20170607184118]
+netapp_password = 45
+netapp_server_hostname = 46.5.5.5
+volume_backend_name = netapp-nfs-20170607184118
+netapp_vserver = 45
+netapp_server_port = 80
+volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
+nfs_shares_config = 45
+netapp_login = 45
+netapp_storage_protocol = nfs
+netapp_transport_type = http
+
+[huawei-nfs-20170607185058]
+volume_backend_name = huawei-nfs-20170607185058
+volume_driver = None
+cinder_huawei_conf_file = /etc/cinder/huawei_conf/cinder_huawei_huawei-nfs-20170607185058_conf.xml
+
+[huawei-nfs-20170608111134]
+volume_backend_name = huawei-nfs-20170608111134
+volume_driver = None
+cinder_huawei_conf_file = /etc/cinder/huawei_conf/cinder_huawei_huawei-nfs-20170608111134_conf.xml
+
