@@ -1,14 +1,18 @@
 # ml2_conf.ini
+# merged Ocata to Pike
 [ml2]
 # Changing type_drivers after bootstrap can lead to database inconsistencies
-type_drivers = {{ neutron_type_drivers }}
-tenant_network_types = {{ neutron_tenant_network_types }}
+#type_drivers = {{ neutron_type_drivers }}
+#tenant_network_types = {{ neutron_tenant_network_types }}
+type_drivers = flat,vlan
+tenant_network_types = vlan
 
 {% if neutron_plugin_agent == "openvswitch" %}
 {% if enable_hyperv | bool %}
 mechanism_drivers = openvswitch,hyperv
 {% else %}
-mechanism_drivers = openvswitch,l2population
+#mechanism_drivers = openvswitch,l2population
+mechanism_drivers = openvswitch
 {% endif %}
 {% elif neutron_plugin_agent == "linuxbridge" %}
 mechanism_drivers = linuxbridge,l2population
@@ -17,7 +21,8 @@ mechanism_drivers = {{ opendaylight_mechanism_driver }}
 {% endif %}
 
 {% if neutron_extension_drivers %}
-extension_drivers = {{ neutron_extension_drivers|map(attribute='name')|join(',') }}
+#extension_drivers = {{ neutron_extension_drivers|map(attribute='name')|join(',') }}
+extension_drivers = qos
 {% elif enable_hyperv | bool %}
 extension_drivers = port_security
 {% endif %}
@@ -32,9 +37,11 @@ port_binding_controller = {{ opendaylight_port_binding_type }}
 
 [ml2_type_vlan]
 {% if enable_ironic | bool %}
-network_vlan_ranges = physnet1
+#network_vlan_ranges = physnet1
+network_vlan_ranges = physnet1:50:200
 {% else %}
-network_vlan_ranges =
+#network_vlan_ranges =
+network_vlan_ranges = physnet1:50:200
 {% endif %}
 
 [ml2_type_flat]
@@ -46,8 +53,8 @@ flat_networks = {% for bridge in neutron_bridge_name.split(',') %}physnet{{ loop
 
 {% if not enable_hyperv | bool %}
 [ml2_type_vxlan]
-vni_ranges = 1:1000
-vxlan_group = 239.1.1.1
+#vni_ranges = 1:1000
+#vxlan_group = 239.1.1.1
 {% endif %}
 
 [securitygroup]
@@ -60,9 +67,9 @@ firewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
 {% if neutron_plugin_agent == "openvswitch" or neutron_plugin_agent == "opendaylight" %}
 {% if not enable_hyperv | bool %}
 [agent]
-tunnel_types = vxlan
-l2_population = true
-arp_responder = true
+#tunnel_types = vxlan
+#l2_population = true
+#arp_responder = true
 {% endif %}
 
 {% if enable_neutron_dvr | bool %}
