@@ -1,0 +1,15 @@
+---
+control_node:
+    group: control
+    pkg_install:
+      - corosync
+      - pacemaker
+      - pcs
+      - resource-agents
+      - fping
+
+all_node:
+    group: baremetal 
+    pkg_install:
+      - nfs-utils
+      

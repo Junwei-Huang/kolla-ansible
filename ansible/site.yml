@@ -716,3 +716,11 @@
     - { role: skydive,
         tags: skydive,
         when: enable_skydive | bool }
+        
+- name: Apply role package-install
+  gather_facts: false
+  hosts: all
+  serial: '{{ serial|default("0") }}'
+  roles:
+    - { role: package-install,
+        tags: package-install }

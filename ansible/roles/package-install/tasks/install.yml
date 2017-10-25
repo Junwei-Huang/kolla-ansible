@@ -1,0 +1,19 @@
+---
+- name: Install yum packages in control node
+  package: name={{item}} state=present
+  become: True
+  with_items: "{{ control_node.pkg_install }}"
+  when: 
+    - ansible_os_family == 'RedHat'
+    - inventory_hostname in groups[control_node.group]
+  
+- name: Install yum packages in all node
+  package: name={{item}} state=present
+  become: True
+  with_items: "{{ all_node.pkg_install }}"
+  when: 
+    - ansible_os_family == 'RedHat'
+    - inventory_hostname in groups[all_node.group]
+    
+
+    
