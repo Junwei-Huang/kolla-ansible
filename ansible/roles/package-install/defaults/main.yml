@@ -6,10 +6,10 @@ control_node:
       - pacemaker
       - pcs
       - resource-agents
-      - fping
 
 all_node:
     group: baremetal 
     pkg_install:
       - nfs-utils
+      - fping
       
