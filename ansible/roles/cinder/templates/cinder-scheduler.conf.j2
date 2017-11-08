@@ -1,0 +1,16 @@
+[DEFAULT]
+debug = True
+scheduler_default_weighers = CapacityWeigher,VolumeNumberWeigher
+scheduler_manager = cinder.ruijie_cinder.scheduler.ruijie_manager.RuiJieSchedulerManager
+nova_catalog_admin_info = compute:nova:adminURL
+nova_catalog_info = compute:nova:publicURL
+os_privileged_user_auth_url = {{ internal_protocol }}://{{ kolla_internal_vip_address }}:{{ keystone_admin_port }}
+os_privileged_user_name = cinder
+os_privileged_user_password = {{ cinder_keystone_password }}
+os_privileged_user_tenant = service
+scheduler_default_filters = AvailabilityZoneFilter,CapacityFilter,MigrationFilter,CapabilitiesFilter,IgnoreAttemptedHostsFilter,LunLimitFilter,StoragePoolFilter
+scheduler_driver = cinder.ruijie_cinder.scheduler.ruijie_filter_scheduler.RuijieFilterScheduler
+
+[backend_storage]
+main_node_login_name = {{ user_login }}
+main_node_login_password = {{ user_password }}

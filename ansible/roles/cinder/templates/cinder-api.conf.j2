@@ -1,0 +1,16 @@
+[DEFAULT]
+debug=True
+glance_api_version = 2
+allowed_direct_url_schemes = cinder
+enable_force_upload= true
+nova_catalog_admin_info = compute:nova:adminURL
+nova_catalog_info = compute:nova:publicURL
+os_privileged_user_auth_url = {{ internal_protocol }}://{{ kolla_internal_vip_address }}:{{ keystone_admin_port }}
+os_privileged_user_name = cinder
+os_privileged_user_password = {{ cinder_keystone_password }}
+os_privileged_user_tenant = service
+query_volume_filters = name,status,metadata,availability_zone,bootable,group_id,max_size,min_size
+volume_usage_audit_period = hour
+no_snapshot_gb_quota = True
+osapi_volume_extension = cinder.ruijie_cinder.api.contrib.standard_extensions
+volume_api_class = cinder.ruijie_cinder.volume.api.API

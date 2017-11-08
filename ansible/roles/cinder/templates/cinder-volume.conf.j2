@@ -1,0 +1,17 @@
+[DEFAULT]
+debug = True
+host = cinder1
+glance_api_version = 2
+allowed_direct_url_schemes = cinder
+nova_catalog_admin_info = compute:nova:adminURL
+os_privileged_user_auth_url = {{ internal_protocol }}://{{ kolla_internal_vip_address }}:{{ keystone_admin_port }}
+os_privileged_user_name = cinder
+os_privileged_user_password = {{ cinder_keystone_password }}
+os_privileged_user_tenant = service
+volume_manager = cinder.ruijie_cinder.volume.ruijie_manager.RuiJieVolumeManager
+glance_num_retries = 5
+glance_request_timeout =1800
+
+[backend_storage]
+main_node_login_name = {{ user_login }}
+main_node_login_password = {{ user_password }}
