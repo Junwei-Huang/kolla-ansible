@@ -40,36 +40,11 @@
     - service.enabled | bool
   notify:
     - Restart cinder-api container
-   
-- name: Ensuring custom config directories exist
-  file:
-    path: "{{ node_custom_config }}/{{ project_name }}"
-    state: "directory"
-    recurse: yes
-  delegate_to: localhost
 
 # need kolla-ansible post-deploy first
 - name: Geting the Cinder project and user ID
   shell: source /etc/kolla/admin-openrc.sh && openstack project show service -f value -c id && openstack user show cinder -f value -c id
   register: project_and_user_id
-  delegate_to: localhost
-   
-- name: Copying over custom cinder-*.conf
-  vars:
-    service_name: "{{ item.key }}"
-    services_need_custom_conf:
-      - "cinder-api"
-      - "cinder-scheduler"
-      - "cinder-volume"
-  template: 
-    src: "{{ role_path }}/templates/{{ item.key }}.conf.j2"
-    dest: "{{ node_custom_config }}/cinder/{{ item.key }}.conf"
-  register: cinder_*_confs
-  when:
-    - item.value.enabled | bool
-    - inventory_hostname in groups[item.value.group]
-    - item.key in services_need_custom_conf
-  with_dict: "{{ cinder_services }}"
   delegate_to: localhost
 
 - name: Copying over cinder.conf
@@ -78,6 +53,8 @@
   merge_configs:
     sources:
       - "{{ role_path }}/templates/cinder.conf.j2"
+      - "{{ role_path }}/templates/{{ project_name }}-custom.conf.j2"
+      - "{{ role_path }}/templates/{{ item.key }}.conf.j2"
       - "{{ node_custom_config }}/global.conf"
       - "{{ node_custom_config }}/database.conf"
       - "{{ node_custom_config }}/messaging.conf"
