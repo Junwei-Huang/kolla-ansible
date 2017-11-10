@@ -13,4 +13,10 @@ query_volume_filters = name,status,metadata,availability_zone,bootable,group_id,
 volume_usage_audit_period = hour
 no_snapshot_gb_quota = True
 osapi_volume_extension = cinder.ruijie_cinder.api.contrib.standard_extensions
+cinder_internal_tenant_user_id = {{ project_and_user_id.stdout_lines[1] }}
+cinder_internal_tenant_project_id = {{ project_and_user_id.stdout_lines[0] }}
 volume_api_class = cinder.ruijie_cinder.volume.api.API
+
+[coordination]
+backend_url = mysql://{{ cinder_database_user }}:{{ cinder_database_password }}@{{ cinder_database_address }}/{{ cinder_database_name }}
+

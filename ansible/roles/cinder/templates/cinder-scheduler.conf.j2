@@ -10,6 +10,11 @@ os_privileged_user_password = {{ cinder_keystone_password }}
 os_privileged_user_tenant = service
 scheduler_default_filters = AvailabilityZoneFilter,CapacityFilter,MigrationFilter,CapabilitiesFilter,IgnoreAttemptedHostsFilter,LunLimitFilter,StoragePoolFilter
 scheduler_driver = cinder.ruijie_cinder.scheduler.ruijie_filter_scheduler.RuijieFilterScheduler
+cinder_internal_tenant_user_id = {{ project_and_user_id.stdout_lines[1] }}
+cinder_internal_tenant_project_id = {{ project_and_user_id.stdout_lines[0] }}
+
+[coordination]
+backend_url = mysql://{{ cinder_database_user }}:{{ cinder_database_password }}@{{ cinder_database_address }}/{{ cinder_database_name }}
 
 [backend_storage]
 main_node_login_name = {{ user_login }}

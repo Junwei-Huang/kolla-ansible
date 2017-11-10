@@ -9,8 +9,13 @@ os_privileged_user_name = cinder
 os_privileged_user_password = {{ cinder_keystone_password }}
 os_privileged_user_tenant = service
 volume_manager = cinder.ruijie_cinder.volume.ruijie_manager.RuiJieVolumeManager
+cinder_internal_tenant_user_id = {{ project_and_user_id.stdout_lines[1] }}
+cinder_internal_tenant_project_id = {{ project_and_user_id.stdout_lines[0] }}
 glance_num_retries = 5
 glance_request_timeout =1800
+
+[coordination]
+backend_url = mysql://{{ cinder_database_user }}:{{ cinder_database_password }}@{{ cinder_database_address }}/{{ cinder_database_name }}
 
 [backend_storage]
 main_node_login_name = {{ user_login }}
