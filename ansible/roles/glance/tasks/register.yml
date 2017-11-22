@@ -32,3 +32,27 @@
     module_extra_vars:
       openstack_glance_auth: "{{ openstack_glance_auth }}"
   run_once: True
+
+  - name: Creating the Glance_Pool project
+  shell: source /etc/kolla/admin-openrc.sh && openstack project create --domain default --description "Glance_Pool Project" Glance_Pool
+  register: project_Glance_Pool
+  failed_when:
+    - project_Glance_Pool.rc != 0
+    - "'two projects with the same name' not in project_Glance_Pool.stderr"
+  run_once: True
+  
+- name: Creating the glance_image cinder_volume_type
+  shell: source /etc/kolla/admin-openrc.sh && cinder type-create --description "Volume_Type: glance_image" glance_image
+  register: volume_type
+  failed_when:
+    - volume_type.rc != 0
+    - "'Volume Type glance_image already exists' not in volume_type.stderr"
+  run_once: True
+  
+- name: Add user admin/glance/cinder to Glance_Pool
+  shell: >
+    source /etc/kolla/admin-openrc.sh
+    && openstack role add --user admin --project Glance_Pool admin
+    && openstack role add --user glance --project Glance_Pool admin
+    && openstack role add --user cinder --project Glance_Pool admin
+  run_once: True

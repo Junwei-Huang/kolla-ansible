@@ -1,5 +1,9 @@
 [DEFAULT]
-debug = {{ glance_logging_debug }}
+#debug = {{ glance_logging_debug }}
+debug = True
+show_multiple_locations = True
+client_socket_timeout = 3600
+cinder_state_transition_timeout = 3600
 
 # NOTE(elemoine) log_dir alone does not work for Glance
 log_file = /var/log/kolla/glance/glance-api.log
@@ -51,6 +55,12 @@ default_store = swift+http
 default_store = file
 filesystem_store_datadir = /var/lib/glance/images/
 {% endif %}
+
+cinder_store_project_name = Glance_Pool
+cinder_volume_type = glance_image
+cinder_store_user_name = glance
+cinder_store_password = {{ glance_keystone_password }}
+cinder_store_auth_address = {{ internal_protocol }}://{{ kolla_internal_vip_address }}:{{ keystone_admin_port }}
 
 {% if glance_store_backends %}
 stores = {{ glance_store_backends|map(attribute='name')|join(',') }}
