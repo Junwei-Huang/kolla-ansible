@@ -33,7 +33,7 @@
       openstack_glance_auth: "{{ openstack_glance_auth }}"
   run_once: True
 
-  - name: Creating the Glance_Pool project
+- name: Creating the Glance_Pool project
   shell: source /etc/kolla/admin-openrc.sh && openstack project create --domain default --description "Glance_Pool Project" Glance_Pool
   register: project_Glance_Pool
   failed_when:
