@@ -29,6 +29,30 @@
       or nsx_ini | changed
       or policy_json | changed
       or neutron_server_container | changed
+      
+- name: Restart neutron-metering-agent container
+  vars:
+    service_name: "neutron-metering-agent"
+    service: "{{ neutron_services[service_name] }}"
+    config_json: "{{ neutron_config_jsons.results|selectattr('item.key', 'equalto', service_name)|first }}"
+    neutron_conf: "{{ neutron_confs.results|selectattr('item.key', 'equalto', service_name)|first }}"
+    metering_agent_ini: "{{ metering_agent_inis.results|selectattr('item.key', 'equalto', service_name)|first }}"
+    policy_json: "{{ policy_jsons.results|selectattr('item.key', 'equalto', service_name)|first }}"
+    neutron_metering_agent_container: "{{ check_neutron_containers.results|selectattr('item.key', 'equalto', service_name)|first }}"
+  kolla_docker:
+    action: "recreate_or_restart_container"
+    common_options: "{{ docker_common_options }}"
+    name: "neutron_metering_agent"
+    image: "{{ service.image }}"
+    volumes: "{{ service.volumes }}"
+    privileged: "{{ service.privileged | default(False) }}"
+  when:
+    - action != "config"
+    - config_json | changed
+      or neutron_conf | changed
+#      or metering_agent_ini | changed
+      or policy_json | changed
+      or neutron_metering_agent_container | changed
 
 - name: Restart neutron-openvswitch-agent container
   vars:
