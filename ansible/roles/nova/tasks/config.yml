@@ -31,7 +31,7 @@
   with_dict: "{{ nova_services }}"
   notify:
     - "Restart {{ item.key }} container"
-
+    
 - name: Copying over nova.conf
   vars:
     services_require_nova_conf:
@@ -49,6 +49,7 @@
   merge_configs:
     sources:
       - "{{ role_path }}/templates/nova.conf.j2"
+      - "{{ role_path }}/templates/{{ item.key }}.conf.j2"
       - "{{ node_custom_config }}/global.conf"
       - "{{ node_custom_config }}/database.conf"
       - "{{ node_custom_config }}/messaging.conf"

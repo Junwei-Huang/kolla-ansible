@@ -1,0 +1,16 @@
+[DEFAULT]
+debug = True
+state_path = /var/lib/nova
+vif_plugging_is_fatal = False
+vif_plugging_timeout = 2 
+compute_monitors = cpu.virt_driver,mem.virt_driver
+block_device_allocate_retries = 180
+reclaim_instance_interval = 604800
+
+[ruijie]
+rj_instance_launch_cpu_limit = 95
+rj_instance_launch_ram_limit = 95
+rj_ha_migrate = 300
+rj_cpu_regulatory_factor = 0.05
+rj_ram_regulatory_factor = 0.05
+nas_enable = False
