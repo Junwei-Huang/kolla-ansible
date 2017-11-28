@@ -60,7 +60,7 @@ cinder_store_project_name = Glance_Pool
 cinder_volume_type = glance_image
 cinder_store_user_name = glance
 cinder_store_password = {{ glance_keystone_password }}
-cinder_store_auth_address = {{ internal_protocol }}://{{ kolla_internal_vip_address }}:{{ keystone_admin_port }}
+cinder_store_auth_address = {{ internal_protocol }}://{{ kolla_internal_vip_address }}:{{ keystone_admin_port }}/v3
 
 {% if glance_store_backends %}
 stores = {{ glance_store_backends|map(attribute='name')|join(',') }}
