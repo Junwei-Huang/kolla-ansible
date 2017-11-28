@@ -40,12 +40,15 @@
     - service.enabled | bool
   notify:
     - Restart cinder-api container
+<<<<<<< HEAD
 
 # need kolla-ansible post-deploy first
 - name: Geting the Cinder project and user ID
   shell: source /etc/kolla/admin-openrc.sh && openstack project show service -f value -c id && openstack user show cinder -f value -c id
   register: project_and_user_id
   delegate_to: localhost
+=======
+>>>>>>> parent of 4cddff8... cinder config配置文件模板化
 
 - name: Copying over cinder.conf
   vars:
