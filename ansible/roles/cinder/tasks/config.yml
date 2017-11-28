@@ -53,7 +53,6 @@
   merge_configs:
     sources:
       - "{{ role_path }}/templates/cinder.conf.j2"
-      - "{{ role_path }}/templates/{{ project_name }}-custom.conf.j2"
       - "{{ role_path }}/templates/{{ item.key }}.conf.j2"
       - "{{ node_custom_config }}/global.conf"
       - "{{ node_custom_config }}/database.conf"
